@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💩 해피토일렛 변기평론가 — 대한민국 화장실 리뷰</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Black+Han+Sans&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brown-dark: #3b1f0a;
+      --brown-mid: #7a3b1e;
+      --brown-light: #c47d3e;
+      --cream: #fdf6e3;
+      --cream-dark: #f0e0b8;
+      --gold: #d4a017;
+      --white: #fffdf7;
+      --text: #2a1505;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--text);
+      font-family: 'Noto Serif KR', serif;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--brown-dark);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-emoji {
+      font-size: 2.2rem;
+      animation: wobble 3s ease-in-out infinite;
+    }
+
+    @keyframes wobble {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    .logo-text {
+      color: var(--cream);
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .logo-sub {
+      display: block;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.65rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      font-weight: 400;
+    }
+
+    nav a {
+      color: var(--cream-dark);
+      text-decoration: none;
+      font-size: 0.85rem;
+      margin-left: 24px;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--brown-dark);
+      color: var(--cream);
+      text-align: center;
+      padding: 72px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(212,160,23,0.18) 0%, transparent 70%);
+    }
+
+    .hero-emoji-row {
+      font-size: 3rem;
+      margin-bottom: 24px;
+      letter-spacing: 0.2em;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      animation: fadeUp 0.9s ease 0.1s both;
+    }
+
+    .hero h1 span { color: var(--gold); }
+
+    .hero p {
+      font-size: 1rem;
+      color: var(--cream-dark);
+      max-width: 500px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+      animation: fadeUp 0.9s ease 0.2s both;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      animation: fadeUp 0.9s ease 0.3s both;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-num {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 2rem;
+      color: var(--gold);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--cream-dark);
+      letter-spacing: 0.1em;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    .section-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.6rem;
+      color: var(--brown-dark);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(to right, var(--brown-light), transparent);
+      margin-left: 12px;
+    }
+
+    /* ── REVIEW GRID ── */
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+
+    .review-card {
+      background: var(--white);
+      border: 2px solid var(--cream-dark);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(59,31,10,0.15);
+      border-color: var(--brown-light);
+    }
+
+    .card-thumb {
+      width: 100%;
+      height: 180px;
+      background: var(--cream-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-thumb::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--white));
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: var(--brown-dark);
+      color: var(--gold);
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      letter-spacing: 0.1em;
+    }
+
+    .card-body { padding: 20px; }
+
+    .card-location {
+      font-size: 0.72rem;
+      color: var(--brown-light);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.15rem;
+      color: var(--brown-dark);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .card-excerpt {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #5a3d2b;
+      margin-bottom: 16px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--cream-dark);
+      padding-top: 12px;
+    }
+
+    .rating {
+      display: flex;
+      gap: 3px;
+      font-size: 1.1rem;
+    }
+
+    .card-date {
+      font-size: 0.72rem;
+      color: #a07850;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── WRITE FORM ── */
+    .write-section {
+      background: var(--white);
+      border: 2px solid var(--cream-dark);
+      border-radius: 4px;
+      padding: 36px;
+      margin-bottom: 56px;
+    }
+
+    .write-section h2 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.4rem;
+      color: var(--brown-dark);
+      margin-bottom: 24px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      color: var(--brown-mid);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      border: 2px solid var(--cream-dark);
+      background: var(--cream);
+      padding: 10px 14px;
+      font-family: 'Noto Serif KR', serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--brown-light); }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .emoji-choices {
+      display: flex;
+      gap: 8px;
+    }
+
+    .emoji-choices input[type="radio"] { display: none; }
+
+    .emoji-choices label {
+      font-size: 1.9rem;
+      cursor: pointer;
+      padding: 6px 10px;
+      border: 2px solid var(--cream-dark);
+      border-radius: 4px;
+      background: var(--cream);
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .emoji-choices input[type="radio"]:checked + label {
+      border-color: var(--brown-light);
+      background: var(--cream-dark);
+    }
+
+    .star-row {
+      display: flex;
+      gap: 6px;
+      padding: 4px 0;
+    }
+
+    .star-row span {
+      font-size: 1.8rem;
+      cursor: pointer;
+      opacity: 0.25;
+      transition: opacity 0.12s, transform 0.12s;
+      user-select: none;
+    }
+
+    .star-row span.active { opacity: 1; }
+    .star-row span:hover { transform: scale(1.2); }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--brown-dark);
+      color: var(--gold);
+      border: none;
+      padding: 14px;
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+
+    .submit-btn:hover:not(:disabled) { background: var(--brown-mid); }
+    .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .form-notice {
+      font-size: 0.78rem;
+      color: #a07850;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    /* ── SETUP BANNER ── */
+    .setup-banner {
+      background: #2d1a00;
+      border: 2px solid var(--gold);
+      color: var(--cream-dark);
+      padding: 20px 24px;
+      border-radius: 4px;
+      margin-bottom: 32px;
+      font-size: 0.85rem;
+      line-height: 1.8;
+      display: none;
+    }
+
+    .setup-banner.show { display: block; }
+
+    .setup-banner strong { color: var(--gold); font-family: 'Black Han Sans', sans-serif; }
+
+    /* ── LOADING ── */
+    .loading-row {
+      font-size: 0.9rem;
+      color: #a07850;
+      padding: 8px 0 24px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--brown-dark);
+      color: var(--gold);
+      padding: 13px 30px;
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 0.95rem;
+      border: 2px solid var(--gold);
+      border-radius: 4px;
+      z-index: 300;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ── RATING LEGEND ── */
+    .legend {
+      background: var(--white);
+      border: 2px solid var(--cream-dark);
+      padding: 28px;
+      border-radius: 4px;
+      margin-bottom: 56px;
+    }
+
+    .legend h2 {
+      font-family: 'Black Han Sans', sans-serif;
+      font-size: 1.2rem;
+      color: var(--brown-dark);
+      margin-bottom: 16px;
+    }
+
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+    }
+
+    .legend-emoji { font-size: 1.4rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--brown-dark);
+      color: var(--cream-dark);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.8rem;
+      border-top: 4px solid var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero-stats { gap: 24px; }
+      .write-section { padding: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-emoji">🚽</span>
+      <span class="logo-text">변기평론가
+        <span class="logo-sub">KOREA TOILET REVIEW</span>
+      </span>
+    </a>
+    <nav>
+      <a href="#reviews">리뷰</a>
+      <a href="#write">리뷰 쓰기</a>
+      <a href="#rating">평점 기준</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-emoji-row">🚽 💩 🧻 🚿 💦</div>
+  <h1>대한민국<br><span>화장실 리뷰</span> 아카이브</h1>
+  <p>공중화장실부터 카페 화장실까지, 대한민국의 모든 화장실을 정직하게 평가합니다.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num" id="review-count">3</span>
+      <span class="stat-label">리뷰 수</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">💩</span>
+      <span class="stat-label">최하 등급</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">🏆</span>
+      <span class="stat-label">최고 등급</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+  <!-- REVIEWS -->
+  <div id="reviews">
+    <h2 class="section-title">💩 최신 리뷰</h2>
+
+    <!-- Firebase 미설정 시 안내 -->
+    <div class="setup-banner" id="setup-banner">
+      <strong>⚙️ Firebase 연결 필요</strong><br>
+      아직 데이터베이스가 연결되지 않아 리뷰가 저장되지 않습니다.<br>
+      아래 설정 방법을 따라 <code style="background:rgba(212,160,23,.2);color:var(--gold);padding:1px 6px;border-radius:2px">firebaseConfig</code>를 채워주세요.
+    </div>
+
+    <p class="loading-row" id="loading-msg">🚽 리뷰 불러오는 중...</p>
+
+    <div class="review-grid" id="review-grid">
+
+      <!-- 샘플 리뷰 (항상 표시) -->
+      <div class="review-card">
+        <div class="card-thumb">🚽
+          <span class="card-badge">강력 추천</span>
+        </div>
+        <div class="card-body">
+          <div class="card-location">📍 서울 강남구 · 스타벅스</div>
+          <div class="card-title">강남역 스타벅스 화장실 — 변기의 왕좌</div>
+          <p class="card-excerpt">입장 순간부터 달랐다. 좌변기가 자동으로 열렸고, 비데의 온도는 완벽했다. 인생 화장실이 있다면 여기다.</p>
+          <div class="card-footer">
+            <div class="rating">🚽🚽🚽🚽🚽</div>
+            <span class="card-date">편집부 · 2025.04.20</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="card-thumb">💩
+          <span class="card-badge">주의</span>
+        </div>
+        <div class="card-body">
+          <div class="card-location">📍 서울 종로구 · 공중화장실</div>
+          <div class="card-title">광화문 공중화장실 — 전쟁터 그 자체</div>
+          <p class="card-excerpt">문 손잡이부터 심상치 않았다. 변기 뚜껑은 실종, 환기는 0점, 휴지는 사치였다. 다시는 오지 않겠다는 다짐.</p>
+          <div class="card-footer">
+            <div class="rating">🚽⬜⬜⬜⬜</div>
+            <span class="card-date">편집부 · 2025.04.18</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="card-thumb">🧻</div>
+        <div class="card-body">
+          <div class="card-location">📍 경기 수원시 · 백화점</div>
+          <div class="card-title">갤러리아 백화점 — 화장실도 명품</div>
+          <p class="card-excerpt">조명은 따뜻하고, 거울은 넓고, 핸드크림까지 비치. 볼일 보러 간 게 맞는지 의심될 정도의 퀄리티.</p>
+          <div class="card-footer">
+            <div class="rating">🚽🚽🚽🚽⬜</div>
+            <span class="card-date">편집부 · 2025.04.15</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WRITE REVIEW -->
+  <div class="write-section" id="write">
+    <h2>✍️ 화장실 리뷰 남기기</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>닉네임 (선택)</label>
+        <input type="text" id="f-nick" placeholder="익명의 평론가" maxlength="20">
+      </div>
+      <div class="form-group">
+        <label>장소 <span style="color:var(--brown-light)">*</span></label>
+        <input type="text" id="f-location" placeholder="예) 서울 강남구 · 스타벅스" maxlength="40">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>제목 <span style="color:var(--brown-light)">*</span></label>
+      <input type="text" id="f-title" placeholder="예) 강남역 스타벅스 — 변기의 왕좌" maxlength="50">
+    </div>
+
+    <div class="form-group">
+      <label>리뷰 내용 <span style="color:var(--brown-light)">*</span></label>
+      <textarea id="f-content" placeholder="청결도, 시설, 분위기 등 솔직하게 남겨주세요." maxlength="300"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>별점 <span style="color:var(--brown-light)">*</span></label>
+        <div class="star-row" id="star-row">
+          <span data-v="1">🚽</span>
+          <span data-v="2">🚽</span>
+          <span data-v="3">🚽</span>
+          <span data-v="4">🚽</span>
+          <span data-v="5">🚽</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>썸네일 이모지</label>
+        <div class="emoji-choices">
+          <input type="radio" name="emoji" id="e1" value="🚽" checked>
+          <label for="e1">🚽</label>
+          <input type="radio" name="emoji" id="e2" value="💩">
+          <label for="e2">💩</label>
+          <input type="radio" name="emoji" id="e3" value="🧻">
+          <label for="e3">🧻</label>
+          <input type="radio" name="emoji" id="e4" value="🚿">
+          <label for="e4">🚿</label>
+        </div>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="submitReview()">🚽 리뷰 등록하기</button>
+    <p class="form-notice">💡 로그인 없이 누구나 등록 가능하며 모두에게 공개됩니다. 허위·비방 리뷰는 삭제될 수 있습니다.</p>
+  </div>
+
+  <!-- RATING LEGEND -->
+  <div class="legend" id="rating">
+    <h2>🚽 평점 기준</h2>
+    <div class="legend-grid">
+      <div class="legend-item"><span class="legend-emoji">🚽🚽🚽🚽🚽</span><span>완벽 — 신세계</span></div>
+      <div class="legend-item"><span class="legend-emoji">🚽🚽🚽🚽</span><span>훌륭 — 또 가고 싶다</span></div>
+      <div class="legend-item"><span class="legend-emoji">🚽🚽🚽</span><span>보통 — 평범한 화장실</span></div>
+      <div class="legend-item"><span class="legend-emoji">🚽🚽</span><span>별로 — 어쩔 수 없을 때만</span></div>
+      <div class="legend-item"><span class="legend-emoji">🚽</span><span>최악 — 참는 게 낫다</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>💩 변기평론가 — 대한민국 화장실을 정직하게 기록합니다<br>
+  로그인 없이 누구나 리뷰를 남길 수 있습니다 🚽
+  </p>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  🔧 FIREBASE 설정 (아래 값을 채워야 리뷰가 저장됩니다)
+  //
+  //  1. https://console.firebase.google.com 접속
+  //  2. "프로젝트 추가" 클릭
+  //  3. 프로젝트 생성 후 "</>" (웹 앱 추가) 클릭
+  //  4. 아래에 표시되는 firebaseConfig 값 붙여넣기
+  //  5. 좌측 "Firestore Database" → "데이터베이스 만들기"
+  //     → "테스트 모드로 시작" 선택
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  const firebaseConfig = {
+    apiKey:            "AIzaSyApTj1pkncxhmaRMh8uT6cxlmJEFfnrtUI",
+    authDomain:        "happytoilet-a2070.firebaseapp.com",
+    projectId:         "happytoilet-a2070",
+    storageBucket:     "happytoilet-a2070.firebasestorage.app",
+    messagingSenderId: "914913631892",
+    appId:             "1:914913631892:web:40b43ab4fa07f11d871e81"
+  };
+
+  const configured = firebaseConfig.apiKey !== "YOUR_API_KEY";
+  let db = null;
+
+  if (configured) {
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
+    loadReviews();
+  } else {
+    document.getElementById('loading-msg').style.display = 'none';
+    document.getElementById('setup-banner').classList.add('show');
+  }
+
+  // ── 리뷰 불러오기 ──
+  async function loadReviews() {
+    const loadingMsg = document.getElementById('loading-msg');
+    try {
+      const snap = await db.collection('reviews').orderBy('createdAt', 'desc').get();
+      loadingMsg.style.display = 'none';
+
+      const grid = document.getElementById('review-grid');
+      snap.forEach(doc => {
+        grid.insertBefore(buildCard(doc.data()), grid.firstChild);
+      });
+
+      if (snap.size > 0) {
+        document.getElementById('review-count').textContent = snap.size + 3;
+      }
+    } catch (e) {
+      loadingMsg.textContent = '리뷰를 불러오지 못했습니다.';
+      console.error(e);
+    }
+  }
+
+  function buildCard(d) {
+    const r = Math.max(1, Math.min(5, parseInt(d.rating) || 3));
+    const stars = '🚽'.repeat(r) + '⬜'.repeat(5 - r);
+    const date = d.createdAt?.toDate ? fmtDate(d.createdAt.toDate()) : fmtDate(new Date());
+    const nick = esc(d.nick || '익명의 평론가');
+
+    const el = document.createElement('div');
+    el.className = 'review-card';
+    el.innerHTML = `
+      <div class="card-thumb">${esc(d.emoji || '🚽')}</div>
+      <div class="card-body">
+        <div class="card-location">📍 ${esc(d.location)}</div>
+        <div class="card-title">${esc(d.title)}</div>
+        <p class="card-excerpt">${esc(d.content)}</p>
+        <div class="card-footer">
+          <div class="rating">${stars}</div>
+          <span class="card-date">${nick} · ${date}</span>
+        </div>
+      </div>`;
+    return el;
+  }
+
+  function fmtDate(d) {
+    const p = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}.${p(d.getMonth()+1)}.${p(d.getDate())}`;
+  }
+
+  function esc(s) {
+    return String(s)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ── 별점 피커 ──
+  let selectedRating = 3;
+  (function() {
+    const stars = document.querySelectorAll('#star-row span');
+    const paint = n => stars.forEach((s, i) => s.classList.toggle('active', i < n));
+    paint(selectedRating);
+    stars.forEach(s => {
+      s.addEventListener('click', () => { selectedRating = +s.dataset.v; paint(selectedRating); });
+      s.addEventListener('mouseover', () => paint(+s.dataset.v));
+    });
+    document.getElementById('star-row').addEventListener('mouseleave', () => paint(selectedRating));
+  })();
+
+  // ── 리뷰 등록 ──
+  async function submitReview() {
+    const nick     = document.getElementById('f-nick').value.trim();
+    const location = document.getElementById('f-location').value.trim();
+    const title    = document.getElementById('f-title').value.trim();
+    const content  = document.getElementById('f-content').value.trim();
+    const emoji    = document.querySelector('input[name="emoji"]:checked').value;
+
+    if (!location) return alert('f-location', '장소를 입력해주세요');
+    if (!title)    return alert('f-title', '제목을 입력해주세요');
+    if (!content)  return alert('f-content', '리뷰 내용을 입력해주세요');
+
+    if (!configured || !db) {
+      showToast('⚙️ Firebase 설정이 필요합니다. 코드의 firebaseConfig를 채워주세요.');
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = '등록 중...';
+
+    try {
+      await db.collection('reviews').add({
+        nick: nick || '익명의 평론가',
+        location, title, content, emoji,
+        rating: selectedRating,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      // 즉시 화면에 추가
+      const grid = document.getElementById('review-grid');
+      grid.insertBefore(buildCard({ nick, location, title, content, emoji, rating: selectedRating }), grid.firstChild);
+
+      const cnt = document.getElementById('review-count');
+      cnt.textContent = parseInt(cnt.textContent) + 1;
+
+      // 폼 초기화
+      document.getElementById('f-nick').value = '';
+      document.getElementById('f-location').value = '';
+      document.getElementById('f-title').value = '';
+      document.getElementById('f-content').value = '';
+      document.getElementById('e1').checked = true;
+      selectedRating = 3;
+      document.querySelectorAll('#star-row span').forEach((s, i) => s.classList.toggle('active', i < 3));
+
+      showToast('🚽 리뷰가 등록되었습니다!');
+      document.getElementById('reviews').scrollIntoView({ behavior: 'smooth' });
+    } catch (e) {
+      showToast('❌ 등록 실패. 잠시 후 다시 시도해주세요.');
+      console.error(e);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '🚽 리뷰 등록하기';
+    }
+  }
+
+  function alert(id, msg) {
+    const el = document.getElementById(id);
+    el.style.borderColor = '#c0392b';
+    el.focus();
+    showToast('⚠️ ' + msg);
+    setTimeout(() => el.style.borderColor = '', 2000);
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3200);
+  }
+</script>
+</body>
+</html>

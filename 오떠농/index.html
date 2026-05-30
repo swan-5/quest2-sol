@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오떠농 — 고창 한달살기 & 스탬프 투어</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --gd:#2D5016;--gm:#4A7C2F;--gl:#7FB05A;--gp:#EAF3DE;
+  --earth:#8B6914;--el:#C4A84F;--ep:#FAEEDA;
+  --cream:#FAF8F2;--bark:#4A3728;--fog:#F5F3EE;
+}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--fog);min-height:100vh;}
+.app{max-width:480px;margin:0 auto;background:var(--cream);min-height:100vh;position:relative;box-shadow:0 0 40px rgba(0,0,0,0.12);}
+
+/* NAV */
+.nav{background:var(--gd);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;}
+.nav-logo{font-family:'Noto Serif KR',serif;color:#fff;font-size:20px;font-weight:600;}
+.nav-logo span{color:#C4A84F;}
+.nav-tabs{display:flex;gap:4px;}
+.nav-tab{background:none;border:none;color:rgba(255,255,255,0.6);font-size:11px;font-family:'Noto Sans KR',sans-serif;padding:6px 10px;border-radius:6px;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.nav-tab i{font-size:18px;}
+.nav-tab.active{background:rgba(255,255,255,0.15);color:#fff;}
+
+/* SCREENS */
+.screen{display:none;animation:fadeIn .25s ease;}
+.screen.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.divider{height:8px;background:var(--fog);}
+
+/* HOME HERO */
+.hero{background:var(--gd);padding:26px 20px 38px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:26px;background:var(--cream);border-radius:50% 50% 0 0/26px 26px 0 0;}
+.hero-eye{font-size:11px;color:#C4A84F;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.hero-title{font-family:'Noto Serif KR',serif;font-size:27px;color:#fff;line-height:1.35;margin-bottom:12px;font-weight:700;letter-spacing:-0.5px;}
+.hero-title em{color:#C4A84F;font-style:normal;font-weight:700;}
+.hero-sub{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.6;margin-bottom:18px;}
+.hero-stats{display:flex;gap:20px;}
+.hs-num{font-size:20px;font-weight:700;color:#C4A84F;}
+.hs-lbl{font-size:10px;color:rgba(255,255,255,0.55);margin-top:1px;}
+.hs-div{width:1px;background:rgba(255,255,255,0.2);margin:4px 0;}
+
+.stamp-banner{margin:20px 20px 0;background:var(--ep);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;border:1px solid rgba(196,168,79,0.3);}
+.sb-icon{width:44px;height:44px;background:#C4A84F;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sb-icon i{font-size:20px;color:#fff;}
+.sb-title{font-size:13px;font-weight:500;color:var(--earth);margin-bottom:2px;}
+.sb-sub{font-size:11px;color:#999;}
+
+.sec{padding:22px 20px;}
+.sec-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px;}
+.sec-title{font-family:'Noto Serif KR',serif;font-size:17px;color:var(--gd);font-weight:600;}
+.sec-more{font-size:12px;color:var(--gm);background:none;border:none;font-family:'Noto Sans KR',sans-serif;cursor:pointer;}
+
+.lscroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;}
+.lscroll::-webkit-scrollbar{display:none;}
+.lcard{flex:0 0 200px;background:#fff;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);cursor:pointer;transition:transform .2s;}
+.lcard:hover{transform:translateY(-2px);}
+.lcard-img{height:100px;overflow:hidden;position:relative;}
+.lcard-img svg{width:100%;height:100%;}
+.lcard-badge{position:absolute;top:8px;left:8px;background:var(--gd);color:#fff;font-size:10px;padding:3px 8px;border-radius:20px;}
+.lcard-body{padding:10px 12px;}
+.lcard-name{font-size:13px;font-weight:500;color:var(--bark);margin-bottom:4px;}
+.lcard-work{font-size:11px;color:var(--gm);display:flex;align-items:center;gap:3px;}
+.lcard-work i{font-size:11px;}
+.lcard-time{font-size:11px;color:#aaa;margin-top:2px;}
+
+.place-grid{display:flex;flex-direction:column;gap:10px;}
+.pc{background:#fff;border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;transition:all .2s;}
+.pc:hover{border-color:var(--gl);}
+.pc.visited{border-color:var(--gm);background:var(--gp);}
+.pc-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:19px;}
+.pc-icon.nat{background:#EAF3DE;color:#4A7C2F;}
+.pc-icon.her{background:#E6F1FB;color:#185FA5;}
+.pc-icon.food{background:#FAEEDA;color:#8B6914;}
+.pc-icon.cafe{background:#FAECE7;color:#993C1D;}
+.pc-icon.act{background:#F4C0D1;color:#993556;}
+.pc-icon.shop{background:#EEF0F2;color:#5F5E5A;}
+.pc-body{flex:1;min-width:0;}
+.pc-name{font-size:13px;font-weight:500;color:var(--bark);margin-bottom:2px;}
+.pc.visited .pc-name{color:var(--gd);}
+.pc-meta{font-size:11px;color:#aaa;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.pc-tag{font-size:10px;color:var(--gm);background:var(--gp);padding:2px 7px;border-radius:20px;}
+.pc-tag.her{color:#185FA5;background:#E6F1FB;}
+.pc-tag.food{color:var(--earth);background:var(--ep);}
+.pc-tag.cafe{color:#993C1D;background:#FAECE7;}
+.pc-tag.act{color:#993556;background:#F4C0D1;}
+.pc-tag.shop{color:#5F5E5A;background:#EEF0F2;}
+.pc-right{flex-shrink:0;}
+.stamp-btn{padding:7px 14px;border-radius:20px;border:1px solid var(--gm);background:#fff;color:var(--gm);font-size:12px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:4px;}
+.stamp-btn i{font-size:13px;}
+.stamp-btn:hover{background:var(--gp);}
+.stamp-btn.stamped-btn{background:var(--gm);color:#fff;border-color:var(--gm);}
+
+/* STAMP SCREEN */
+.stamp-top{background:var(--gd);padding:20px 20px 16px;}
+.stamp-top-title{font-family:'Noto Serif KR',serif;font-size:19px;color:#fff;margin-bottom:4px;}
+.stamp-top-sub{font-size:12px;color:rgba(255,255,255,0.6);}
+.stamp-progress-wrap{padding:16px 20px;background:#fff;border-bottom:1px solid rgba(0,0,0,0.06);}
+.sp-label{font-size:12px;color:#888;margin-bottom:10px;}
+.stamp-strip{display:flex;gap:6px;align-items:center;}
+.s-cell{flex:1;aspect-ratio:1;border-radius:8px;border:1.5px dashed rgba(45,80,22,0.2);background:#fafafa;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;color:#ddd;font-weight:500;transition:all .2s;}
+.s-cell.stamped{border:1.5px solid var(--gm);background:var(--gp);}
+.s-cell.stamped::after{content:'✓';font-size:16px;color:var(--gm);font-weight:700;}
+.s-cell.reward-cell{border:2px solid #C4A84F;background:var(--ep);flex:1.2;}
+.reward-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;}
+.reward-inner .gift{font-size:16px;}
+.reward-inner .gift-lbl{font-size:7px;color:var(--earth);font-weight:500;text-align:center;line-height:1.3;}
+.sp-info{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
+.sp-count{font-size:13px;font-weight:500;color:var(--gd);}
+.sp-remain{font-size:11px;color:#999;}
+.sp-bar-wrap{height:4px;background:rgba(0,0,0,0.07);border-radius:4px;margin-top:8px;overflow:hidden;}
+.sp-bar{height:100%;background:var(--el);border-radius:4px;transition:width .8s ease;}
+
+.search-wrap{padding:14px 20px 0;}
+.search-box{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(0,0,0,0.12);border-radius:10px;padding:10px 14px;}
+.search-box i{font-size:18px;color:#aaa;}
+.search-box input{flex:1;border:none;background:none;font-size:14px;font-family:'Noto Sans KR',sans-serif;color:var(--bark);outline:none;}
+.search-box input::placeholder{color:#ccc;}
+.cat-bar{display:flex;gap:8px;overflow-x:auto;padding:14px 20px 0;scrollbar-width:none;}
+.cat-bar::-webkit-scrollbar{display:none;}
+.cat-chip{flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:12px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;border:1px solid rgba(0,0,0,0.12);background:#fff;color:#555;transition:all .2s;display:flex;align-items:center;gap:4px;}
+.cat-chip i{font-size:13px;}
+.cat-chip.active{background:var(--gd);border-color:var(--gd);color:#fff;}
+.places-wrap{padding:14px 20px 24px;}
+.places-count{font-size:12px;color:#888;margin-bottom:12px;}
+.empty{text-align:center;padding:40px 20px;color:#bbb;}
+.empty i{font-size:40px;margin-bottom:10px;display:block;}
+.empty p{font-size:13px;}
+
+/* MY */
+.my-profile{background:var(--gd);padding:24px 20px 32px;}
+.my-av{width:60px;height:60px;border-radius:50%;background:#C4A84F;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;font-family:'Noto Serif KR',serif;font-weight:600;margin-bottom:12px;}
+.my-name{font-size:17px;font-weight:500;color:#fff;margin-bottom:3px;}
+.my-sub{font-size:12px;color:rgba(255,255,255,0.6);}
+.my-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:-20px 20px 0;position:relative;z-index:10;}
+.my-card{background:#fff;border-radius:12px;padding:14px 10px;text-align:center;border:1px solid rgba(0,0,0,0.06);box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.my-card-num{font-size:22px;font-weight:700;color:var(--gd);}
+.my-card-lbl{font-size:10px;color:#888;margin-top:2px;}
+.my-sec{padding:20px;}
+.my-sec-t{font-size:12px;color:#aaa;margin-bottom:12px;}
+.my-row{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(0,0,0,0.05);cursor:pointer;color:var(--bark);font-size:13px;}
+.my-row i{font-size:17px;color:var(--gm);}
+.my-arr{margin-left:auto;color:#ddd;}
+
+/* LIVING */
+.filter-bar{padding:12px 20px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;background:#fff;border-bottom:1px solid rgba(0,0,0,0.05);}
+.filter-bar::-webkit-scrollbar{display:none;}
+.fchip{flex-shrink:0;padding:5px 14px;border-radius:20px;font-size:12px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;border:1px solid rgba(0,0,0,0.12);background:#fff;color:#555;transition:all .2s;}
+.fchip.active{background:var(--gd);border-color:var(--gd);color:#fff;}
+.lgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 20px;}
+.lc2{background:#fff;border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);cursor:pointer;transition:transform .2s;}
+.lc2:hover{transform:translateY(-2px);}
+.lc2-img{height:110px;overflow:hidden;}
+.lc2-img svg{width:100%;height:100%;}
+.lc2-body{padding:10px 12px;}
+.lc2-tag{font-size:10px;color:var(--gm);margin-bottom:3px;}
+.lc2-name{font-size:12px;font-weight:500;color:var(--bark);margin-bottom:6px;line-height:1.3;}
+.work-pill{display:inline-flex;align-items:center;gap:3px;background:var(--gp);color:var(--gd);font-size:10px;padding:3px 8px;border-radius:20px;}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200;align-items:flex-end;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--cream);border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:80vh;overflow-y:auto;padding:20px;animation:slideUp .3s ease;position:relative;}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.m-handle{width:36px;height:4px;background:rgba(0,0,0,0.12);border-radius:2px;margin:0 auto 16px;}
+.m-close{position:absolute;top:16px;right:20px;background:rgba(0,0,0,0.08);border:none;border-radius:50%;width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:#666;}
+.m-title{font-family:'Noto Serif KR',serif;font-size:18px;color:var(--gd);margin-bottom:4px;}
+.m-sub{font-size:12px;color:#999;margin-bottom:16px;}
+.work-section{background:#fff;border-radius:12px;padding:14px;margin-bottom:14px;border:1px solid rgba(0,0,0,0.06);}
+.ws-title{font-size:12px;color:#888;margin-bottom:10px;}
+.ws-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;color:var(--bark);}
+.ws-row i{font-size:16px;color:var(--gm);flex-shrink:0;}
+.ws-row:last-child{margin-bottom:0;}
+.det-desc{font-size:13px;color:#555;line-height:1.7;margin-bottom:16px;}
+.cta{width:100%;padding:14px;background:var(--gd);color:#fff;border:none;border-radius:12px;font-size:14px;font-family:'Noto Sans KR',sans-serif;font-weight:500;cursor:pointer;margin-bottom:8px;}
+.cta.e{background:var(--earth);}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.chip{font-size:11px;padding:4px 10px;border-radius:20px;background:var(--gp);color:var(--gd);}
+.chip.e{background:var(--ep);color:var(--earth);}
+</style>
+</head>
+<body>
+
+<div class="app">
+<nav class="nav">
+  <div class="nav-logo">오<span>떠</span>농</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="go('home')" id="tab-home"><i class="ti ti-home"></i>홈</button>
+    <button class="nav-tab" onclick="go('stamp')" id="tab-stamp"><i class="ti ti-award"></i>스탬프</button>
+    <button class="nav-tab" onclick="go('living')" id="tab-living"><i class="ti ti-home-heart"></i>한달살기</button>
+    <button class="nav-tab" onclick="go('my')" id="tab-my"><i class="ti ti-user"></i>마이</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+  <div class="hero">
+    <div class="hero-eye">전북 고창군 · 유네스코 세계유산</div>
+    <div class="hero-title">오늘 떠나는 농촌,<br><em>오떠농?</em></div>
+    <div class="hero-sub">원하는 곳을 골라 방문하고<br>스탬프를 모아 지역상품권을 받아가세요</div>
+    <div class="hero-stats">
+      <div><div class="hs-num">193</div><div class="hs-lbl">참여 장소</div></div>
+      <div class="hs-div"></div>
+      <div><div class="hs-num">23</div><div class="hs-lbl">등록 농가</div></div>
+      <div class="hs-div"></div>
+      <div><div class="hs-num" id="h-stamp">0/10</div><div class="hs-lbl">내 스탬프</div></div>
+    </div>
+  </div>
+
+  <div class="stamp-banner" onclick="go('stamp')">
+    <div class="sb-icon"><i class="ti ti-award"></i></div>
+    <div>
+      <div class="sb-title" id="home-banner-title">스탬프 0 / 10 달성</div>
+      <div class="sb-sub">10개 모으면 고창사랑상품권 5,000원 지급!</div>
+    </div>
+    <i class="ti ti-chevron-right" style="margin-left:auto;color:#C4A84F;font-size:18px;"></i>
+  </div>
+
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-title">이번 달 추천 한달살기</div>
+      <button class="sec-more" onclick="go('living')">전체보기 →</button>
+    </div>
+    <div class="lscroll" id="home-living"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sec">
+    <div class="sec-hd">
+      <div class="sec-title">인기 스탬프 장소</div>
+      <button class="sec-more" onclick="go('stamp')">전체 장소 보기 →</button>
+    </div>
+    <div class="place-grid" id="home-places"></div>
+  </div>
+</div>
+
+<!-- STAMP -->
+<div class="screen" id="screen-stamp">
+  <div class="stamp-top">
+    <div class="stamp-top-title">고창 스탬프 투어</div>
+    <div class="stamp-top-sub">원하는 장소를 자유롭게 골라 방문하고 도장을 받으세요</div>
+  </div>
+  <div class="stamp-progress-wrap">
+    <div class="sp-label">내 스탬프 현황</div>
+    <div class="stamp-strip" id="stamp-strip"></div>
+    <div class="sp-info">
+      <span class="sp-count" id="sp-count-txt">0 / 9 달성</span>
+      <span class="sp-remain" id="sp-remain-txt">9개 더 모으면 상품권 지급</span>
+    </div>
+    <div class="sp-bar-wrap"><div class="sp-bar" id="sp-bar" style="width:0%"></div></div>
+  </div>
+  <div class="search-wrap">
+    <div class="search-box">
+      <i class="ti ti-search"></i>
+      <input type="text" placeholder="장소명, 지역명으로 검색..." oninput="buildPlaces()" id="search-input">
+    </div>
+  </div>
+  <div class="cat-bar">
+    <button class="cat-chip active" onclick="setCat(this,'전체')"><i class="ti ti-grid-3x3"></i>전체</button>
+    <button class="cat-chip" onclick="setCat(this,'자연·경관')"><i class="ti ti-mountain"></i>자연·경관</button>
+    <button class="cat-chip" onclick="setCat(this,'역사·문화유산')"><i class="ti ti-building-arch"></i>역사·유산</button>
+    <button class="cat-chip" onclick="setCat(this,'식당·먹거리')"><i class="ti ti-tools-kitchen-2"></i>식당</button>
+    <button class="cat-chip" onclick="setCat(this,'카페·디저트')"><i class="ti ti-coffee"></i>카페</button>
+    <button class="cat-chip" onclick="setCat(this,'체험·액티비티')"><i class="ti ti-kayak"></i>체험</button>
+    <button class="cat-chip" onclick="setCat(this,'로컬 상점')"><i class="ti ti-shopping-bag"></i>로컬상점</button>
+  </div>
+  <div class="places-wrap">
+    <div class="places-count" id="places-count"></div>
+    <div class="place-grid" id="place-grid"></div>
+    <div class="empty" id="empty-state" style="display:none">
+      <i class="ti ti-mood-sad"></i><p>검색 결과가 없습니다</p>
+    </div>
+  </div>
+</div>
+
+<!-- LIVING -->
+<div class="screen" id="screen-living">
+  <div style="background:var(--gd);padding:20px 20px 16px;">
+    <div style="font-family:'Noto Serif KR',serif;font-size:19px;color:#fff;margin-bottom:4px;">한달살기 신청</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.6);">숙식 제공 · 하루 몇 시간만 함께해요</div>
+  </div>
+  <div class="filter-bar">
+    <button class="fchip active" onclick="filtLiving(this,'전체')">전체</button>
+    <button class="fchip" onclick="filtLiving(this,'농가체험')">농가 체험</button>
+    <button class="fchip" onclick="filtLiving(this,'관광농원')">관광농원</button>
+    <button class="fchip" onclick="filtLiving(this,'갯벌체험')">갯벌 체험</button>
+    <button class="fchip" onclick="filtLiving(this,'카페')">카페 운영</button>
+  </div>
+  <div class="lgrid" id="lgrid"></div>
+</div>
+
+<!-- MY -->
+<div class="screen" id="screen-my">
+  <div class="my-profile">
+    <div class="my-av">김</div>
+    <div class="my-name">김귀촌 님</div>
+    <div class="my-sub">2025년 4월부터 고창 탐색 중</div>
+  </div>
+  <div class="my-cards">
+    <div class="my-card"><div class="my-card-num" id="my-stamp-num">0</div><div class="my-card-lbl">스탬프</div></div>
+    <div class="my-card"><div class="my-card-num">1</div><div class="my-card-lbl">한달살기</div></div>
+    <div class="my-card"><div class="my-card-num">0</div><div class="my-card-lbl">상품권</div></div>
+  </div>
+  <div style="height:36px;"></div>
+  <div class="my-sec">
+    <div class="my-sec-t">내 활동</div>
+    <div class="my-row"><i class="ti ti-map-pin"></i>방문한 장소<i class="ti ti-chevron-right my-arr"></i></div>
+    <div class="my-row"><i class="ti ti-heart"></i>찜한 농가<i class="ti ti-chevron-right my-arr"></i></div>
+    <div class="my-row"><i class="ti ti-gift"></i>상품권 내역<i class="ti ti-chevron-right my-arr"></i></div>
+  </div>
+  <div class="my-sec" style="border-top:8px solid var(--fog);">
+    <div class="my-sec-t">설정</div>
+    <div class="my-row"><i class="ti ti-user-circle"></i>프로필 수정<i class="ti ti-chevron-right my-arr"></i></div>
+    <div class="my-row"><i class="ti ti-building-store"></i>상권 입점 신청<i class="ti ti-chevron-right my-arr"></i></div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeM(event)">
+  <div class="modal">
+    <div class="m-handle"></div>
+    <button class="m-close" onclick="closeBtn()"><i class="ti ti-x"></i></button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const PLACES=[
+  {id:'p01',name:'고창 갯벌 세계유산센터',area:'심원면',cat:'자연·경관',icon:'ti-droplet',cls:'nat',desc:'유네스코 세계자연유산에 등재된 고창 갯벌의 생태를 한눈에 배울 수 있는 전시관.',hours:'09:00–18:00'},
+  {id:'p02',name:'선운산 도립공원',area:'아산면',cat:'자연·경관',icon:'ti-mountain',cls:'nat',desc:'꽃무릇과 동백꽃이 아름다운 선운산. 선운사·도솔암 등 명소를 품고 있습니다.',hours:'연중 개방'},
+  {id:'p03',name:'운곡 람사르습지',area:'아산면',cat:'자연·경관',icon:'ti-wave-sine',cls:'nat',desc:'람사르 협약 습지로 등록된 생태 보고. 다양한 수생식물과 철새를 관찰할 수 있습니다.',hours:'09:00–18:00'},
+  {id:'p04',name:'청보리밭 (공음면)',area:'공음면',cat:'자연·경관',icon:'ti-leaf',cls:'nat',desc:'봄이면 드넓은 청보리밭이 펼쳐지는 고창의 상징적 풍경.',hours:'3–5월 개방'},
+  {id:'p05',name:'구시포 해수욕장',area:'해리면',cat:'자연·경관',icon:'ti-wave-saw-tool',cls:'nat',desc:'한적한 백사장과 솔숲이 어우러진 서해안 해수욕장.',hours:'연중 개방'},
+  {id:'p06',name:'동호해변',area:'해리면',cat:'자연·경관',icon:'ti-sunset-2',cls:'nat',desc:'조용하고 깨끗한 해변으로 캠핑족들에게 인기.',hours:'연중 개방'},
+  {id:'p07',name:'방장산 자연휴양림',area:'고창읍',cat:'자연·경관',icon:'ti-trees',cls:'nat',desc:'울창한 편백나무 숲길과 계곡이 있는 휴양림. 피톤치드 산책에 제격.',hours:'09:00–18:00'},
+  {id:'h01',name:'고창 고인돌 유적지',area:'죽림리',cat:'역사·문화유산',icon:'ti-building-arch',cls:'her',desc:'세계 최대 밀집 고인돌 군락. 유네스코 세계문화유산.',hours:'09:00–18:00'},
+  {id:'h02',name:'고창읍성 (모양성)',area:'고창읍',cat:'역사·문화유산',icon:'ti-tower',cls:'her',desc:'조선시대 평지 읍성. 성곽 걷기와 판소리 공연 관람 가능.',hours:'09:00–18:00'},
+  {id:'h03',name:'선운사',area:'아산면',cat:'역사·문화유산',icon:'ti-building-community',cls:'her',desc:'백제 시대 창건된 고찰. 동백꽃 명소이자 고창의 대표 불교 유적지.',hours:'일출–일몰'},
+  {id:'h04',name:'판소리 박물관',area:'고창읍',cat:'역사·문화유산',icon:'ti-masks-theater',cls:'her',desc:'동리 신재효 선생의 고향 고창에서 판소리의 역사를 만나는 전시 공간.',hours:'09:00–18:00'},
+  {id:'h05',name:'고창읍 동헌',area:'고창읍',cat:'역사·문화유산',icon:'ti-home-2',cls:'her',desc:'조선시대 지방 관청 건물이 잘 보존된 유적지.',hours:'09:00–17:00'},
+  {id:'f01',name:'복분자 막걸리 주막',area:'고창읍',cat:'식당·먹거리',icon:'ti-tools-kitchen-2',cls:'food',desc:'고창 특산 복분자로 빚은 막걸리와 파전이 유명한 로컬 주막.',hours:'11:00–21:00'},
+  {id:'f02',name:'갯벌 장어구이 전문점',area:'심원면',cat:'식당·먹거리',icon:'ti-flame',cls:'food',desc:'고창 갯벌에서 잡은 신선한 장어를 숯불에 구워내는 현지인 맛집.',hours:'11:00–20:00'},
+  {id:'f03',name:'고창 풍천장어 타운',area:'아산면',cat:'식당·먹거리',icon:'ti-tools-kitchen-2',cls:'food',desc:'풍천장어로 유명한 고창. 현지 어부에게 직매입한 장어요리 전문 거리.',hours:'10:00–21:00'},
+  {id:'f04',name:'선운산 산채비빔밥',area:'아산면',cat:'식당·먹거리',icon:'ti-bowl',cls:'food',desc:'선운산 자락에서 직접 채취한 나물로 만드는 산채 비빔밥.',hours:'09:00–19:00'},
+  {id:'f05',name:'수박 직판 농가 식당',area:'부안면',cat:'식당·먹거리',icon:'ti-plant-2',cls:'food',desc:'고창 수박 산지 직판과 수박 빙수를 맛볼 수 있는 농가형 식당.',hours:'여름 한정'},
+  {id:'f06',name:'복분자 한정식집',area:'고창읍',cat:'식당·먹거리',icon:'ti-salad',cls:'food',desc:'복분자 소스를 활용한 한정식 코스.',hours:'11:30–20:00'},
+  {id:'c01',name:'선운산 입구 감성 카페',area:'아산면',cat:'카페·디저트',icon:'ti-coffee',cls:'cafe',desc:'선운산 입구의 한옥 개조 카페. 복분자 라떼와 쑥 크림 와플이 시그니처.',hours:'09:00–19:00'},
+  {id:'c02',name:'동호해변 오션뷰 카페',area:'해리면',cat:'카페·디저트',icon:'ti-cup',cls:'cafe',desc:'서해 바다가 통창으로 보이는 카페. 일몰 시간 방문 추천.',hours:'10:00–21:00'},
+  {id:'c03',name:'고창읍성 돌담 카페',area:'고창읍',cat:'카페·디저트',icon:'ti-coffee',cls:'cafe',desc:'읍성 돌담길 옆 오래된 한옥을 개조한 카페.',hours:'10:00–18:00'},
+  {id:'c04',name:'복분자 아이스크림 가게',area:'고창읍',cat:'카페·디저트',icon:'ti-ice-cream',cls:'cafe',desc:'고창 복분자로 만든 수제 아이스크림.',hours:'10:00–20:00'},
+  {id:'c05',name:'갯벌 뷰 베이커리',area:'심원면',cat:'카페·디저트',icon:'ti-bread',cls:'cafe',desc:'갯벌이 내려다보이는 베이커리 카페. 미역·다시마 소금으로 굽는 건강빵.',hours:'08:00–18:00'},
+  {id:'a01',name:'고창 갯벌 조개잡이 체험',area:'심원면',cat:'체험·액티비티',icon:'ti-fish',cls:'act',desc:'썰물 때 직접 조개와 낙지를 잡는 갯벌 체험.',hours:'물때 맞춰 운영'},
+  {id:'a02',name:'복분자 와인 만들기',area:'고창읍',cat:'체험·액티비티',icon:'ti-bottle',cls:'act',desc:'고창 복분자로 직접 와인을 담그는 체험 프로그램.',hours:'10:00–16:00'},
+  {id:'a03',name:'고인돌 탁본 체험',area:'죽림리',cat:'체험·액티비티',icon:'ti-pencil',cls:'act',desc:'유네스코 고인돌 유적에서 탁본 뜨기 체험.',hours:'10:00–17:00'},
+  {id:'a04',name:'선운산 숲속 명상 클래스',area:'아산면',cat:'체험·액티비티',icon:'ti-yoga',cls:'act',desc:'선운산 편백나무 숲에서 진행하는 1시간 명상·힐링 프로그램.',hours:'07:00·10:00 2회'},
+  {id:'a05',name:'수박 따기 팜 투어',area:'부안면',cat:'체험·액티비티',icon:'ti-plant-2',cls:'act',desc:'수박 농가에서 직접 수박을 따고 시식하는 팜 투어.',hours:'6–8월 한정'},
+  {id:'a06',name:'판소리 한 소절 배우기',area:'고창읍',cat:'체험·액티비티',icon:'ti-microphone',cls:'act',desc:'판소리의 고장 고창에서 전문 강사에게 배우는 판소리 입문 체험.',hours:'14:00·16:00 2회'},
+  {id:'s01',name:'고창 복분자 직판장',area:'고창읍',cat:'로컬 상점',icon:'ti-shopping-bag',cls:'shop',desc:'고창 농협에서 운영하는 복분자 직판장.',hours:'09:00–18:00'},
+  {id:'s02',name:'선운산 약초 한약방',area:'아산면',cat:'로컬 상점',icon:'ti-leaf',cls:'shop',desc:'선운산에서 채취한 약초로 만든 한방 건강 제품 판매.',hours:'09:00–17:00'},
+  {id:'s03',name:'고창 수박 직판 농장',area:'부안면',cat:'로컬 상점',icon:'ti-tractor',cls:'shop',desc:'산지 직송 고창 수박 구매 가능.',hours:'여름 한정'},
+  {id:'s04',name:'고창 오일장 (5·10일)',area:'고창읍',cat:'로컬 상점',icon:'ti-building-store',cls:'shop',desc:'매월 5일·10일 열리는 재래시장.',hours:'5·10일 07:00–15:00'},
+  {id:'s05',name:'갯벌 자연 소금 상점',area:'심원면',cat:'로컬 상점',icon:'ti-droplet',cls:'shop',desc:'고창 갯벌에서 생산한 천일염과 소금 가공품 직판.',hours:'09:00–18:00'},
+  {id:'s06',name:'복분자 천연 화장품 숍',area:'고창읍',cat:'로컬 상점',icon:'ti-heart',cls:'shop',desc:'복분자 추출물로 만든 천연 화장품 브랜드 숍.',hours:'10:00–19:00'},
+];
+
+const LIVING=[
+  {id:'l1',cat:'농가체험',tag:'농가 체험',name:'고창 복분자 농원',work:'복분자 수확·밭 관리',hours:'하루 4시간',days:'주 5일',img:'farm'},
+  {id:'l2',cat:'관광농원',tag:'관광농원',name:'선운산 자락 민박',work:'손님 안내·객실 정리',hours:'하루 3시간',days:'주 4일',img:'pension'},
+  {id:'l3',cat:'갯벌체험',tag:'갯벌 체험',name:'심원면 갯벌 마을',work:'체험 프로그램 보조',hours:'하루 4시간',days:'주 5일',img:'village'},
+  {id:'l4',cat:'카페',tag:'카페 운영',name:'동호해변 감성 카페',work:'음료 제조·홀 서빙',hours:'하루 5시간',days:'주 5일',img:'cafe'},
+  {id:'l5',cat:'농가체험',tag:'농가 체험',name:'땅끝 수박 농가',work:'수박 선별·포장 보조',hours:'하루 4시간',days:'주 4일',img:'farm'},
+  {id:'l6',cat:'관광농원',tag:'관광농원',name:'고창읍성 뷰 팜스테이',work:'농원 가이드·과실 수확',hours:'하루 3시간',days:'주 3일',img:'pension'},
+];
+
+function svgIll(t){
+  if(t==='farm') return`<svg viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg"><rect fill="#8BC34A" width="240" height="120"/><rect fill="#4CAF50" y="80" width="240" height="40"/><rect fill="#795548" x="85" y="35" width="70" height="55" rx="4"/><rect fill="#F44336" x="75" y="22" width="90" height="22" rx="3"/><rect fill="#A5D6A7" x="100" y="60" width="22" height="30"/><circle fill="#FFEB3B" cx="195" cy="22" r="18"/></svg>`;
+  if(t==='pension') return`<svg viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg"><rect fill="#90CAF9" width="240" height="120"/><rect fill="#4A7C2F" y="82" width="240" height="38"/><rect fill="#fff" x="60" y="28" width="120" height="70" rx="6"/><rect fill="#64B5F6" x="76" y="44" width="30" height="28" rx="2"/><rect fill="#64B5F6" x="134" y="44" width="30" height="28" rx="2"/><rect fill="#8D6E63" x="100" y="68" width="40" height="30"/></svg>`;
+  if(t==='village') return`<svg viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg"><rect fill="#FFCDD2" width="240" height="120"/><rect fill="#81C784" y="80" width="240" height="40"/><rect fill="#EF9A9A" x="20" y="42" width="64" height="50" rx="3"/><rect fill="#E57373" x="12" y="30" width="80" height="20" rx="2"/><rect fill="#EF9A9A" x="158" y="48" width="60" height="42" rx="3"/><rect fill="#E57373" x="150" y="36" width="76" height="20" rx="2"/><rect fill="#A5D6A7" x="98" y="60" width="44" height="32"/></svg>`;
+  return`<svg viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg"><rect fill="#FAC775" width="240" height="120"/><rect fill="#F57F17" y="82" width="240" height="38"/><rect fill="#fff" x="55" y="32" width="130" height="65" rx="6"/><rect fill="#FAC775" x="74" y="48" width="40" height="30" rx="3"/><rect fill="#FAC775" x="128" y="48" width="40" height="30" rx="3"/><rect fill="#795548" x="100" y="78" width="40" height="20"/></svg>`;
+}
+
+let stampCount=0,currentCat='전체';
+
+function buildStrip(){
+  const el=document.getElementById('stamp-strip');
+  el.innerHTML='';
+  for(let i=0;i<10;i++){
+    const d=document.createElement('div');
+    if(i===9){d.className='s-cell reward-cell';d.innerHTML=`<div class="reward-inner"><span class="gift">🎁</span><span class="gift-lbl">5,000원<br>상품권</span></div>`;}
+    else{d.className='s-cell'+(i<stampCount?' stamped':'');if(i>=stampCount)d.textContent=i+1;}
+    el.appendChild(d);
+  }
+  const pct=Math.min(Math.round((stampCount/9)*100),100);
+  document.getElementById('sp-bar').style.width=pct+'%';
+  document.getElementById('sp-count-txt').textContent=stampCount+' / 9 달성';
+  const rem=9-stampCount;
+  document.getElementById('sp-remain-txt').textContent=rem>0?rem+'개 더 모으면 상품권 지급':'완성! 상품권을 수령하세요 🎉';
+  document.getElementById('h-stamp').textContent=stampCount+'/10';
+  document.getElementById('home-banner-title').textContent='스탬프 '+stampCount+' / 10 달성';
+  document.getElementById('my-stamp-num').textContent=stampCount;
+}
+
+function buildPlaces(){
+  const kw=(document.getElementById('search-input')||{}).value||'';
+  let list=PLACES;
+  if(currentCat!=='전체') list=list.filter(p=>p.cat===currentCat);
+  if(kw.trim()) list=list.filter(p=>p.name.includes(kw)||p.area.includes(kw)||p.cat.includes(kw));
+  const el=document.getElementById('place-grid');
+  const empty=document.getElementById('empty-state');
+  document.getElementById('places-count').textContent='총 '+list.length+'곳 (전체 193곳 중 표시)';
+  el.innerHTML='';
+  if(list.length===0){empty.style.display='block';return;}
+  empty.style.display='none';
+  list.forEach(p=>{
+    const v=p.visited||false;
+    const d=document.createElement('div');
+    d.className='pc'+(v?' visited':'');
+    d.innerHTML=`<div class="pc-icon ${p.cls}"><i class="ti ${p.icon}"></i></div><div class="pc-body"><div class="pc-name">${p.name}</div><div class="pc-meta"><span class="pc-tag ${p.cls}">${p.cat}</span><span>${p.area}</span>·<span>${p.hours}</span></div></div><div class="pc-right"><button class="stamp-btn${v?' stamped-btn':''}" onclick="event.stopPropagation();toggleVisit('${p.id}')"><i class="ti ${v?'ti-check':'ti-stamp'}"></i>${v?'완료':'도장받기'}</button></div>`;
+    d.onclick=()=>openPlace(p.id);
+    el.appendChild(d);
+  });
+}
+
+function buildHomePlaces(){
+  const el=document.getElementById('home-places');
+  el.innerHTML='';
+  PLACES.slice(0,3).forEach(p=>{
+    const d=document.createElement('div');
+    d.className='pc';
+    d.innerHTML=`<div class="pc-icon ${p.cls}"><i class="ti ${p.icon}"></i></div><div class="pc-body"><div class="pc-name">${p.name}</div><div class="pc-meta"><span class="pc-tag ${p.cls}">${p.cat}</span><span>${p.area}</span></div></div><div class="pc-right"><i class="ti ti-chevron-right" style="color:#ccc;font-size:16px"></i></div>`;
+    d.onclick=()=>go('stamp');
+    el.appendChild(d);
+  });
+}
+
+function toggleVisit(id){
+  const p=PLACES.find(x=>x.id===id);
+  if(!p)return;
+  if(!p.visited&&stampCount<9){stampCount++;p.visited=true;}
+  else if(p.visited){stampCount=Math.max(0,stampCount-1);p.visited=false;}
+  buildStrip();buildPlaces();
+}
+
+function openPlace(id){
+  const p=PLACES.find(x=>x.id===id);
+  if(!p)return;
+  const v=p.visited||false;
+  document.getElementById('modal-body').innerHTML=`<div class="chips"><span class="chip">${p.cat}</span><span class="chip">${p.area}</span><span class="chip" style="background:#f0f0f0;color:#555;">${p.hours}</span></div><div class="m-title">${p.name}</div><div class="m-sub">${p.area} · ${p.cat}</div><div class="work-section"><div class="ws-title">장소 정보</div><div class="ws-row"><i class="ti ti-clock"></i>운영시간: ${p.hours}</div><div class="ws-row"><i class="ti ti-map-pin"></i>위치: 전북 고창군 ${p.area}</div><div class="ws-row"><i class="ti ti-award"></i>방문 완료 시 스탬프 1개 적립</div></div><div class="det-desc">${p.desc}</div><button class="cta${v?' e':''}" onclick="toggleVisit('${p.id}');closeBtn();">${v?'✓ 도장 취소하기':'🔖 방문했어요 — 도장받기'}</button>`;
+  document.getElementById('modal').classList.add('open');
+}
+
+function setCat(btn,cat){
+  currentCat=cat;
+  document.querySelectorAll('.cat-chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  buildPlaces();
+}
+
+function buildLiving(cat){
+  const el=document.getElementById('lgrid');
+  const items=cat==='전체'?LIVING:LIVING.filter(l=>l.cat===cat);
+  el.innerHTML='';
+  items.forEach(l=>{
+    const d=document.createElement('div');
+    d.className='lc2';
+    d.innerHTML=`<div class="lc2-img">${svgIll(l.img)}</div><div class="lc2-body"><div class="lc2-tag">${l.tag}</div><div class="lc2-name">${l.name}</div><div class="work-pill"><i class="ti ti-clock"></i>${l.hours}</div></div>`;
+    el.appendChild(d);
+  });
+}
+
+function filtLiving(btn,cat){
+  document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  buildLiving(cat);
+}
+
+function buildHomeLiving(){
+  const el=document.getElementById('home-living');
+  el.innerHTML='';
+  LIVING.slice(0,3).forEach(l=>{
+    const d=document.createElement('div');
+    d.className='lcard';
+    d.style.position='relative';
+    d.innerHTML=`<div class="lcard-img">${svgIll(l.img)}<div class="lcard-badge">${l.tag}</div></div><div class="lcard-body"><div class="lcard-name">${l.name}</div><div class="lcard-work"><i class="ti ti-tool"></i>${l.work}</div><div class="lcard-time">${l.hours} · ${l.days}</div></div>`;
+    el.appendChild(d);
+  });
+}
+
+function go(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+function closeM(e){if(e.target.id==='modal')closeBtn();}
+function closeBtn(){document.getElementById('modal').classList.remove('open');}
+
+buildStrip();buildPlaces();buildHomePlaces();buildHomeLiving();buildLiving('전체');
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+.inner {
+    width: 1000px;
+    height:500px;
+    margin:0 auto;
+    background-color: orange;
+}
+.left {
+    width:750px; height:500px;
+    float:left;
+    background-image: url('./res/chef_about.png');
+}
+.right{
+    width: 250px;
+    height:500px;
+    float:left;
+    background-color: lightgreen;
+}
+img{
+    display:block;
+}
+#top {
+    margin-top:30px;
+}
+#top .top {
+    width:210px; height:210px;
+    padding:20px;
+    margin-top: 250px;
+    background-color: #386d0dc8;
+    line-height: 20px;
+    font-size:15px;
+}
+#top .top span {
+    font-size: 20px; font-weight: 900;
+}
